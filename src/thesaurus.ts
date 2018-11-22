@@ -1,18 +1,19 @@
-"use strict";
-exports.__esModule = true;
-var fs = require("fs");
+import fs = require('fs');
+import rd = require('readline');
+
 process.argv.splice(0, 2);
-var foundWord = false;
-var fileContent = fs.readFileSync('openthesaurus.txt', 'utf8').toString();
-var lines = fileContent.split('\n');
+let foundWord: boolean = false;
+let fileContent: String = fs.readFileSync('openthesaurus.txt', 'utf8').toString();
+let lines: String[] = fileContent.split('\n');
+
 if (!(process.argv.length === 0)) {
-    for (var k = 0; k < process.argv.length; k++) {
+    for (let k = 0; k < process.argv.length; k++) {
         console.log('Results for argument ' + (k + 1) + ' (\"' + process.argv[k] + '\"):');
-        for (var i = 0; i < lines.length; i++) {
+        for (let i = 0; i < lines.length; i++) {
             if (lines[i].indexOf(process.argv[k]) >= 0) {
                 foundWord = true;
-                var synonyms = lines[i].split(';');
-                for (var j = 0; j < synonyms.length; j++) {
+                let synonyms: String[] = lines[i].split(';');
+                for (let j = 0; j < synonyms.length; j++) {
                     if (!(synonyms[j].indexOf(process.argv[k]) >= 0)) {
                         console.log(synonyms[j] + ' ');
                     }
@@ -24,6 +25,4 @@ if (!(process.argv.length === 0)) {
         }
         foundWord = false;
     }
-}
-else
-    console.error('Please specify words');
+} else console.error('Please specify words');
